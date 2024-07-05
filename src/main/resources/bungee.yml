@@ -1,0 +1,6 @@
+# ----AUTO-GENERATED FILE----
+name: UltimateFriends
+main: com.gmail.holubvojtech.ultimatefriends.UltimateFriends
+author: M1nef4n
+version: 2.7.2
+softDepends: ["RedisBungee", "CobwebAPI", "SQLiteDriver", "PlayerBalancer"]

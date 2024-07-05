@@ -1,0 +1,194 @@
+# select storage system and set params
+# "mysql" or "sqlite"
+storage:
+  module: "sqlite"
+
+  mysql:
+    hostName: "localhost"
+    database: "gtfriends"
+    user: "root"
+    password: ""
+    port: 3306
+
+    # set to true if you have database connectivity problems
+    autoReconnect: false
+    ignoreSsl: false
+
+  sqlite:
+    file: "sql-storage.db"
+
+# coolDown is between clicks or between commands (in milliseconds)
+# (recommended: 1000-2000)
+# cmd is main command and it will be suggested in chat
+# usePermission - true => you must have "ultimatefriends.cmd" permission to use any command
+commands:
+  coolDown: 1500
+  cmd: "f"
+  usePermission: false
+  aliases:
+    - "fr"
+    - "friend"
+    - "friends"
+  reply:
+    enable: false
+    cmd: "r"
+
+  # register /msg shortcut for /f msg
+  msgCmd: false
+
+  override:
+    # set this, if you want to use different chat plugin
+    # /f msg will be redirected to this command
+    #msg: "msg $player $msg"
+
+
+# define default options setting for new players
+options:
+  default:
+    show_msg_join: true
+    show_msg_left: true
+    show_msg_switch: true
+    allow_requests: true
+    allow_private_msg: true
+    show_broadcast: true
+
+
+friendList:
+
+  sort: "online" #"none" - no sorting, "alpha" - sort alphabetically, "online" - online at the bottom (recommended)
+
+  #friend list pages
+  perPage: -1 #-1 = disable pages
+
+  # (recommended: max 100)
+  maxFriends: 24 #default value - if player is not in any group
+
+  groups:
+    vip:
+      permission: "friends.vip"
+      maxFriends: 30
+    donator:
+      permission: "friends.donator"
+      maxFriends: 40
+
+language:
+  # enter full file name in /lang folder
+  file: "lang_en_GB.yml"
+
+  # date format for last seen info
+  # visit https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+  # for table with all available patterns
+  dateFormat: "dd.MM. HH:mm"
+
+# select communication module
+# if you want to use redis then the RedisBungee plugin must be installed
+# http://www.spigotmc.org/resources/redisbungee.211/
+# "bungee" or "redis"
+communication:
+  module: "bungee"
+
+# Select if you want to use player names or player uuids
+# If you're running offline server (not premium), use player names
+# "name" or "uuid"
+playerLookup:
+  type: "name"
+
+# = connection =
+# You can disable connection to these servers
+# (you won't be able to switch servers with connect button
+# in friend list and other players won't be able to connect
+# to these servers with that button)
+#
+# = connectionFrom =
+# You can disable connection from specific servers too.
+# (connect button will not work on these servers)
+#
+# = plugin =
+# You can also disable whole plugin on any of your servers
+# (recommended for Auth/login servers)
+#
+# = onlineStatus =
+# Players on these servers will appear offline in /f menu
+#
+# just enter same server name as is it in bungee config
+disable:
+  connection:
+    - "serverr92"
+    - "serverr93"
+  connectionFrom:
+    - "serverr94"
+  plugin:
+    - "serverr91"
+  onlineStatus:
+    - "serverr95"
+
+#regex msg/bmsg filter
+chat:
+  filterLog:
+    enabled: false
+    timeFormat: "yyyy-MM-dd HH:mm:ss"
+    #you can use: "$time", "$filter", "$player" and "$msg" variables
+    format: "[$time] - $filter: $player ($msg)"
+  filters:
+    #antiyolo:
+    #  #if the message contains this regex, it will be blocked - '(?i)' = case insensitive check
+    #  regex: '(?i)(yolo)'
+    #  #but if the message contains this ignore regex, it won't be blocked
+    #  ignore: '(?i)((don''t)|(do not))([\s\d])(yolo)'
+    #  #run command, if the message is blocked - "$player" is replaced by player name, "$msg" is replaced by message
+    #  runCmd: "kick $player AntiYOLO: $msg"
+    #
+    #anticolor:
+    #  regex: "&[0-9a-fk-or]"
+    #  ignore: ""
+    #  runCmd: ""
+    #something-else:
+    #  regex: ""
+    #  ignore: ""
+    #  runCmd: ""
+    #another-filter:
+    # ...
+
+# Custom buttons
+# If you want to add custom button bellow friend list, you can do it here
+# Format
+#   format;button_text;hover_text;TEXT/CMD/SUGGEST/URL;msg/command_to_run/command_to_suggest/web_page_to_open
+# You must specify button format like in the lang files (there have to be '$') (there are some reasons for this formatting style)
+# If you don't want to show hover text, just insert space between semicolon "..button_text; ;type.."
+customButtons:
+  #- " &9[{&b}$&9];Cmds;&aClick to show commands;TEXT;- /f\n- /f msg <playerName> <msg>\n- /f bmsg <msg>\n- /f options\n- /f add <playerName>\n- /f remove <playerName>\n- /f connect <playerName>"
+  - " &8[{&7}$&8];About;&a&lUltimateFriends by\n&e&lM1nef4n\n&7Click to open page;URL;http://www.spigotmc.org/resources/ultimate-friends.3964/"
+  #- "\n&a[{&c&l}$&a];KILL ME;&cClick to kill yourself;CMD;/kill"
+  #- " &e[{&a}$&e];Report;&aClick and write hacker's name;SUGGEST;/report "
+  #- " $;Lobby; ;CMD;/lobby"
+
+# bungee_server_name;display_name
+# Display name will be used in messages
+serverAliases:
+  - "serverr91;Survival Games"
+  - "serverr92;Lobby"
+
+
+# Social Spy will be automatically enabled for players listed here
+socialSpy:
+  default:
+    - "Insert-Player-Name-Here"
+
+# You can change redis communication channels, if you want or
+# change table names in DB and more...
+# Simply do not touch this until I tell you
+core:
+  ver: 2
+  gtApiPass: ""
+  lang:
+    reset: false
+  redisBungee:
+    msgSplit: ";"
+    channels:
+      fReq: "ultimateFriends_friendRequest"
+      fRem: "ultimateFriends_friendRemove"
+      msg: "ultimateFriends_message"
+      bMsg: "ultimateFriends_broadcast"
+  allowUuidInOfflineMode: false
+  db:
+    uuidNotUnique: false
