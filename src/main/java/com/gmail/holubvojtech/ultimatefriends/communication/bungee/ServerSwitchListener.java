@@ -23,7 +23,6 @@ public class ServerSwitchListener implements Listener {
 
    @EventHandler
    public void onServerConnected(ServerConnectedEvent var1) {
-       System.out.println("2");
       ProxiedPlayer var2 = var1.getPlayer();
       String var3 = var2.getName();
       String var4 = this.connectingTo.remove(var3);
@@ -38,7 +37,6 @@ public class ServerSwitchListener implements Listener {
 
    @EventHandler
    public void onLeft(PlayerDisconnectEvent var1) {
-       System.out.println("3");
       this.connectingTo.remove(var1.getPlayer().getName());
    }
 
